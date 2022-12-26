@@ -4,12 +4,15 @@ module.exports = {
     'es2021': true,
     'node': true,
   },
-  'extends': [
-    'google',
+  'extends': 'google',
+  'overrides': [
   ],
   'parserOptions': {
-    'ecmaVersion': 12,
+    'ecmaVersion': 'latest',
   },
   'rules': {
+    'comma-dangle': 'off',
+    'require-jsdoc': 'off',
+    'linebreak-style': 'off',
   },
 };
