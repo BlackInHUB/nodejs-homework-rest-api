@@ -6,7 +6,7 @@ const authValidation = async (req, res, next) => {
   const {authorization = ''} = req.headers;
   const [tokenType, token] = authorization.split(' ');
 
-  if (tokenType !== 'Bearer') {
+  if (tokenType !== 'Bearer' || !token) {
     next(httpError(401));
   }
 
