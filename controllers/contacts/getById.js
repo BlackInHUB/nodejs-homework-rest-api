@@ -1,32 +1,21 @@
-/* eslint-disable linebreak-style */
-const services = require('../../services.js/contacts');
+const {httpError} = require('../../helpers/errors');
+const services = require('../../services/contacts');
 
-const getById = async (req, res, next) => {
-  try {
-    const {contactId} = req.params;
-    const result = await services.getById(contactId);
+const getById = async (req, res) => {
+  const {contactId} = req.params;
+  const result = await services.getById(contactId);
 
-    if (result) {
-      res.status(200).json({
-        status: 'success',
-        code: 200,
-        data: {
-          contact: result,
-        },
-      });
-    } else {
-      res.status(404).json({
-        status: 'fail',
-        code: 404,
-        message: `Not found contact with id: ${contactId}`,
-        data: 'Not found',
-      },
-      );
-    };
-  } catch (error) {
-    console.error(error);
-    next(error);
-  };
+  if (!result) {
+    throw httpError(404, `Not found contact with id: ${contactId}`);
+  }
+
+  res.status(200).json({
+    status: 'success',
+    code: 200,
+    data: {
+      contact: result,
+    },
+  });
 };
 
 module.exports = {getById};
