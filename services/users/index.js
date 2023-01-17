@@ -1,8 +1,8 @@
 const {User} = require('../../models/usersModel');
 const jwt = require('jsonwebtoken');
 
-const register = async (email, password) => {
-  return await User.create({email, password});
+const register = async (email, password, avatarURL) => {
+  return await User.create({email, password, avatarURL});
 };
 
 const login = async (user) => {

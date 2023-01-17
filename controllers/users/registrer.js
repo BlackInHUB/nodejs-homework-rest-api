@@ -1,6 +1,7 @@
 const {User} = require('../../models/usersModel');
 const services = require('../../services/users');
 const {httpError} = require('../../helpers/errors');
+const gravatar = require('gravatar');
 
 const register = async (req, res) => {
   const {
@@ -14,7 +15,9 @@ const register = async (req, res) => {
     throw httpError(409, 'Email in use');
   };
 
-  const result = await services.register(email, password);
+  const avatarURL = gravatar.url(email);
+
+  const result = await services.register(email, password, avatarURL);
 
   res.status(201).json({
     status: 'created',
