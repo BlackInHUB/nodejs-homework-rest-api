@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs/promises');
-const {jimpResize} = require('../../helpers/jimpResize');
+const {jimpResizer} = require('../../helpers/jimpResizer');
 const services = require('../../services/users');
 
 const avatarsDir = path.resolve('./public/avatars');
@@ -12,7 +12,7 @@ const updateAvatar = async (req, res) => {
   const uploadDir = path.join(avatarsDir, newFilename);
   const avatarURL = path.join('avatars', newFilename);
 
-  await jimpResize(tempDir);
+  await jimpResizer(tempDir, 250, 250);
 
   await fs.rename(tempDir, uploadDir);
 
