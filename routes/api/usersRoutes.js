@@ -3,9 +3,10 @@ const ctrlUsers = require('../../controllers/users');
 const {asyncWrapper} = require('../../helpers/asyncWrapper');
 const {
   usersValidation,
-  updateValidation
-} = require('../../middlewares/usersValidation');
-const {authValidation} = require('../../middlewares/authValidation');
+  updateValidation,
+  authValidation,
+  uploadMwr
+} = require('../../middlewares');
 
 const router = new express.Router();
 
@@ -21,6 +22,10 @@ router.post('/logout',
 router.get('/current',
     authValidation,
     asyncWrapper(ctrlUsers.current));
+router.patch('/avatar',
+    authValidation,
+    uploadMwr.single('avatar'),
+    asyncWrapper(ctrlUsers.updateAvatar));
 router.patch('/',
     authValidation,
     updateValidation,

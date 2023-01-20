@@ -1,9 +1,8 @@
 const express = require('express');
-const {contactValidation} = require('../../middlewares/contactsValidation');
 
 const ctrlContacts = require('../../controllers/contacts');
 const {asyncWrapper} = require('../../helpers/asyncWrapper');
-const {authValidation} = require('../../middlewares/authValidation');
+const {authValidation, contactValidation} = require('../../middlewares');
 
 const router = new express.Router();
 
