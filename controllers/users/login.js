@@ -11,6 +11,10 @@ const login = async (req, res) => {
     throw httpError(401, 'Wrong email or password');
   };
 
+  if (!user.verify) {
+    throw httpError(403, 'You need to verify email');
+  };
+
   const token = await services.login(user);
 
   await User.findOneAndUpdate(user._id, {token});

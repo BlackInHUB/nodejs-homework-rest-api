@@ -1,8 +1,8 @@
 const {User} = require('../../models/usersModel');
 const jwt = require('jsonwebtoken');
 
-const register = async (email, password, avatarURL) => {
-  return await User.create({email, password, avatarURL});
+const register = async (email, password, avatarURL, verificationToken) => {
+  return await User.create({email, password, avatarURL, verificationToken});
 };
 
 const login = async (user) => {
@@ -22,9 +22,15 @@ const update = async (userId, body) => {
   return await User.findByIdAndUpdate(userId, body, {new: true});
 };
 
+const verify = async (userId) => {
+  return await User.findByIdAndUpdate(userId,
+      {verify: true, verificationToken: null});
+};
+
 module.exports = {
   register,
   login,
   logout,
-  update
+  update,
+  verify
 };
