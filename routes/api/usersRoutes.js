@@ -5,7 +5,8 @@ const {
   usersValidation,
   updateValidation,
   authValidation,
-  uploadMwr
+  uploadMwr,
+  emailValidation
 } = require('../../middlewares');
 
 const router = new express.Router();
@@ -13,7 +14,12 @@ const router = new express.Router();
 router.post('/register',
     usersValidation,
     asyncWrapper(ctrlUsers.register));
-router.get('/login',
+router.get('/verify/:verificationToken',
+    asyncWrapper(ctrlUsers.verify));
+router.post('/verify',
+    emailValidation,
+    asyncWrapper(ctrlUsers.verifyResend));
+router.post('/login',
     usersValidation,
     asyncWrapper(ctrlUsers.login));
 router.post('/logout',
